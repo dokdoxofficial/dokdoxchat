@@ -2,17 +2,47 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>실시간 채팅</title>
+  <title>Dokdox|chat</title>
   <script src="/socket.io/socket.io.js"></script>
-  <style>
-    body { font-family: sans-serif; }
-    #messages { list-style: none; padding: 0; }
-    #messages li { padding: 4px; border-bottom: 1px solid #ccc; }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
+<style>
+  @font-face {
+    font-family: 'GMarketSans';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
+    font-weight: 300;
+    font-display: swap;
+  }
+  body{
+    background-color: rgb(224, 221, 237);
+    font-family: 'GMarketSans';
+  }
+  input{
+    color:rgb(0, 0, 0);
+    font-size: 14pt;
+    width: 90%;
+    font-family: 'GMarketSans';
+  }
+  button{
+    font-size: 14pt;
+    background-color:gray;
+    color: white;
+    font-family: 'GMarketSans';
+  }
+  li{
+    list-style-type:none;
+    font-family: 'GMarketSans';
+  }
+  p{
+    font-size: 20pt;
+  }
+  #messages{
+    border:2px solid blue
+  }
+</style>
 <body>
-  <h1>실시간 채팅</h1>
-  <ul id="messages"></ul>
+  <h1>Dokdox|chat</h1>
+  <ul id="messages"><h3>이전 대화내용이 소실됨!</h3></ul>
   <form id="form">
     <input id="input" autocomplete="off" placeholder="메시지 입력" />
     <button>보내기</button>
@@ -33,7 +63,7 @@
     });
 
     socket.on('chat message', (msg) => {
-      const li = document.createElement('li');
+      const li = document.createElement('p');
       li.textContent = msg;
       messages.appendChild(li);
     });

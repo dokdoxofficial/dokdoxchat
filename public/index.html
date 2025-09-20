@@ -6,6 +6,36 @@
   <script src="/socket.io/socket.io.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
+
+<body>
+  <h1>Dokdox|chat</h1>
+  <ul id="messages"><h3>이전 대화내용이 소실됨!</h3></ul>
+  <form id="form">
+    <input id="input" autocomplete="off" placeholder="메시지 입력" />
+    <button>보내기</button>
+  </form>
+
+  <script>
+    const socket = io();
+    const form = document.getElementById('form');
+    const input = document.getElementById('input');
+    const messages = document.getElementById('messages');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (input.value) {
+        socket.emit('chat message', input.value);
+        input.value = '';
+      }
+    });
+
+    socket.on('chat message', (msg) => {
+      const li = document.createElement('p');
+      li.textContent = msg;
+      messages.appendChild(li);
+    });
+  </script>
+</body>
 <style>
   @font-face {
     font-family: 'GMarketSans';
@@ -40,33 +70,4 @@
     border:2px solid blue
   }
 </style>
-<body>
-  <h1>Dokdox|chat</h1>
-  <ul id="messages"><h3>이전 대화내용이 소실됨!</h3></ul>
-  <form id="form">
-    <input id="input" autocomplete="off" placeholder="메시지 입력" />
-    <button>보내기</button>
-  </form>
-
-  <script>
-    const socket = io();
-    const form = document.getElementById('form');
-    const input = document.getElementById('input');
-    const messages = document.getElementById('messages');
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (input.value) {
-        socket.emit('chat message', input.value);
-        input.value = '';
-      }
-    });
-
-    socket.on('chat message', (msg) => {
-      const li = document.createElement('p');
-      li.textContent = msg;
-      messages.appendChild(li);
-    });
-  </script>
-</body>
 </html>
